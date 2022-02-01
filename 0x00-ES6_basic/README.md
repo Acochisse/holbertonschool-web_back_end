@@ -1,0 +1,1 @@
+This directory is related to project 1669 - 0x00-ES6_basic (nice)
