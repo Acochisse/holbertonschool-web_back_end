@@ -1,0 +1,1 @@
+This directory is related to project 1670 - 0x01-ES6_promise 
