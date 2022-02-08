@@ -1,0 +1,1 @@
+This directory is related to 0x02 - ES6 Classes
