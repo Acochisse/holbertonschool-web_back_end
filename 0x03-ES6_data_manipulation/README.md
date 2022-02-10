@@ -1,0 +1,1 @@
+This directory is related to project - 0x03-ES6_data_manipulation
