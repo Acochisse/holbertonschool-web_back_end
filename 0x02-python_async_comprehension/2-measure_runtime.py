@@ -7,6 +7,7 @@ Notice that the total runtime is roughly 10 seconds, explain it to yourself.
 """ 
 import random
 import asyncio
+import time
 
 
 async def measure_runtime() -> float:
