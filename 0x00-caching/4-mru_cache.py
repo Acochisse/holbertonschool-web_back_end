@@ -5,7 +5,7 @@ Module that inherits from BaseCaching, and implements the MRU algorithm
 from base_caching import BaseCaching
 
 
-class MRUCaching(BaseCaching):
+class MRUCache(BaseCaching):
     """Class that implements the MRU algorithm for BaseCaching
     Has three methods: __init__, put, get.
     """
