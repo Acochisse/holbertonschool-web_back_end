@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
+"""
+Module that implements a simple pagination
+"""
 import csv
 import math
 from typing import List
 
 
 def index_range(page, page_size):
-    """return a tuple of size two containing a start index and an end index"""
+    """return a tuple of size two containing a start 
+    index and an end index"""
     start = (page - 1) * page_size
     end = page * page_size
     return (start, end)
@@ -30,7 +34,8 @@ class Server:
         return self.__dataset
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
-        """return the appropriate page of the dataset (i.e. the correct list of
+        """return the appropriate page of the dataset 
+        (i.e. the correct list of
         rows).
         """
         assert type(page) == int and type(page_size) == int
