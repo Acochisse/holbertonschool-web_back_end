@@ -12,6 +12,7 @@ import mysql.connector
 
 PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
+
 def get_db() -> mysql.connector.connection.MySQLConnection:
     """returns a connector to the database"""
     return mysql.connector.connect(
@@ -20,6 +21,7 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
         host=os.environ.get("PERSONAL_DATA_DB_HOST", "localhost"),
         database=os.environ.get("PERSONAL_DATA_DB_NAME")
     )
+
 
 def get_logger() -> logging.Logger:
     """logger function that returns a logging.Logger object"""
@@ -30,6 +32,7 @@ def get_logger() -> logging.Logger:
     stream_handler.setFormatter(RedactingFormatter(PII_FIELDS))
     logger.addHandler(stream_handler)
     return logger
+
 
 def filter_datum(fields: List[str], redaction: str, message: str,
                  separator: str) -> str:
