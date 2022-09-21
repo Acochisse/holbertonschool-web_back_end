@@ -2,6 +2,7 @@
 """ User module
 """
 import hashlib
+import flask
 from models.base import Base
 
 
@@ -57,14 +58,3 @@ class User(Base):
             return "{}".format(self.last_name)
         else:
             return "{} {}".format(self.first_name, self.last_name)
-
-    @app.route('/api/v1/users/<user_id>', methods=['GET'], strict_slashes=False)
-    def get_user(user_id):
-        """If <user_id> is equal to me and request.current_user is None: abort(404)
-    If <user_id> is equal to me and request.current_user is not None: return the authenticated User in a JSON response (like a normal case of GET /api/v1/users/<user_id> where <user_id> is a valid User ID)
-    Otherwise, keep the same behavior"""
-    if user_id == 'me' and request.current_user is None:
-        abort(404)
-    if user_id == 'me' and request.current_user is not None:
-        return jsonify(request.current_user.to_dict())
-    
