@@ -2,6 +2,8 @@
 """
 Module that handles all session authentication
 """
+from flask import Flask, request, jsonify
+from os import getenv
 
 
 @app.route('/auth_session/login', methods=['POST'], strict_slashes=False)
