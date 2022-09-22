@@ -5,7 +5,8 @@ Module that handles all session authentication
 from api.v1.views import app_views
 from flask import Flask, request, jsonify
 from os import getenv
-from api.v1.auth.auth import Auth
+from models.user import User
+
 
 @app.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def login():
