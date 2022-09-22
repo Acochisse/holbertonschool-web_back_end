@@ -8,6 +8,7 @@ from calendar import calendar
 
 @app.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def login():
+    """login handles the post request for the route /auth_session/login""""
     request.form.get('email')
     request.form.get('password')
     if email is None:
