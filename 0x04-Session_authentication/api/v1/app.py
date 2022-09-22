@@ -18,9 +18,9 @@ CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 auth = None
 if os.getenv('AUTH_TYPE') == 'auth':
     auth = Auth()
-elif os.getenv('AUTH_TYPE') == 'basic_auth':
+if os.getenv('AUTH_TYPE') == 'basic_auth':
     auth = BasicAuth()
-elif os.getenv('AUTH_TYPE') == 'session_auth':
+if os.getenv('AUTH_TYPE') == 'session_auth':
     auth = SessionAuth()
 
 
@@ -32,17 +32,13 @@ def before_request() -> None:
         return
     excluded_paths = ['/api/v1/status/', '/api/v1/unauthorized/',
                       '/api/v1/forbidden/', '/api/v1/auth_session/login/']
-    if auth.require_auth(request.path, excluded_paths):
-        if not auth.authorization_header(request):
+    if auth and auth.require_auth(request.path, excluded_paths):
+        if auth.authorization_header(request) is None\
+                and auth.session_cookie(request) is None:
             abort(401)
-        if not session_cookie(request):
+        request.current_user = auth.current_user()
+        if auth.current_user(request) is None:
             abort(403)
-        if not auth.authorization_header(request):
-            abort(401)
-        if not auth.current_user(request):
-            abort(403)
-    request.current_user = auth.current_user(request)
-
 
 @app.errorhandler(401)
 def unauthorized(error):
