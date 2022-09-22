@@ -18,17 +18,15 @@ def session_id():
         return jsonify({"error": "email missing"}), 400
     if password is None:
         return jsonify({"error": "password missing"}), 400
-    usrs = User.search({'email': email})
-
-    if not usrs:
+    try:
+        usrs = User.search({'email': email})
+        if usrs is None or len(usrs) == 0:
+            return jsonify({"error": "no user found for this email"}), 404
+    except Exception:
         return jsonify({"error": "no user found for this email"}), 404
-    
-    for user in usrs:
-        if not user.is_valid_password(password):
-            return jsonify({"error": "wrong password"}), 401
-        else:
-            session_id = auth.create_session(user.id)
-            SESSION_NAME = getenv('SESSION_NAME')
-            out = jsonify(user.to_json())
-            out.set_cookie(SESSION_NAME, session_id)
-            return out
+
+    session_id = auth.create_session(user.id)
+    SESSION_NAME = getenv('SESSION_NAME')
+    out = jsonify(user.to_json())
+    out.set_cookie(SESSION_NAME, session_id)
+    return out
