@@ -3,6 +3,7 @@
 Module that handles authorization and authentication for the API
 """
 from flask import request
+from os import getenv
 
 
 class Auth():
