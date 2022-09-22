@@ -8,7 +8,7 @@ from os import getenv
 from models.user import User
 
 
-@app.route('/auth_session/login', methods=['POST'], strict_slashes=False)
+@app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def session_id():
     """login handles the post request for the route /auth_session/login"""
     from api.v1.app import auth
