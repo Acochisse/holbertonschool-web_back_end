@@ -4,7 +4,7 @@ Module that handles all session authentication
 """
 from flask import Flask, request, jsonify
 from os import getenv
-from api.v1.auth.session_auth import SessionAuth
+from api.v1.auth.auth import Auth
 
 @app.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def login():
