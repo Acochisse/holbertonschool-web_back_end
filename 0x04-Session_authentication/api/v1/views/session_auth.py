@@ -24,9 +24,10 @@ def session_id():
             return jsonify({"error": "no user found for this email"}), 404
     except Exception:
         return jsonify({"error": "no user found for this email"}), 404
-
-    session_id = auth.create_session(user.id)
+    if not usrs[0].is_valid_password(password):
+        return jsonify({"error": "wrong password"}), 401
     SESSION_NAME = getenv('SESSION_NAME')
-    out = jsonify(user.to_json())
-    out.set_cookie(SESSION_NAME, session_id)
-    return out
+    sid = auth.create_session(usrs[0].id)
+    response = jsonify(usrs[0].to_json())
+    response.set_cookie(SESSION_NAME, sid)
+    
