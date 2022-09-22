@@ -3,8 +3,6 @@
 Module that handles all session authentication
 """
 
-from calendar import calendar
-
 
 @app.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def login():
@@ -20,7 +18,7 @@ def login():
     usr = User.search({'email': user_email})
     if not usr.is_valid_password(password):
         return jsonify({"error": "wrong password"}), 401
-    from api.v1.app import auth
+    from api.v1.auth.auth import auth
     out = auth.create_session(usr.id)
     out = jsonify(usr.to_json())
     out.set_cookie(getenv('SESSION_NAME'), out)
