@@ -3,7 +3,7 @@
 Module that handles all session authentication
 """
 
-from calendar import c
+from calendar import calendar
 
 
 @app.route('/auth_session/login', methods=['POST'], strict_slashes=False)
