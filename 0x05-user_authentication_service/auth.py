@@ -1,3 +1,6 @@
+#!/usr/bin/env python3
+""" Module that handles all authentication
+"""
 from db import DB
 import bcrypt
 import uuid
