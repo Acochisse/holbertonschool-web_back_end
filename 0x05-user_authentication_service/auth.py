@@ -6,6 +6,15 @@ import bcrypt
 import uuid
 
 
+def _hash_password(self, password: str) -> str:
+    """Hash a password for storing.
+    """
+    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+    
+def _generate_uuid(self) -> str:
+    """Generate uuid
+    """
+    return str(uuid.uuid4())
 
 class Auth:
     """Auth class to interact with the authentication database.
@@ -15,10 +24,6 @@ class Auth:
         """initisation"""
         self._db = DB()
         
-    def _hash_password(self, password: str) -> str:
-        """Hash a password for storing.
-        """
-        return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
     
     def register_user(self, email: str, password: str) -> User:
         """Register user
@@ -37,11 +42,6 @@ class Auth:
             return bcrypt.checkpw(password.encode('utf-8'), user.hashed_password)
         except NoResultFound:
             return False
-        
-    def _generate_uuid(self) -> str:
-        """Generate uuid
-        """
-        return str(uuid.uuid4())
     
     def create_session(self, email: str) -> str:
         """Create session
