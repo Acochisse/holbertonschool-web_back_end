@@ -4,14 +4,15 @@
 from db import DB
 import bcrypt
 import uuid
+from user import User
 
 
-def _hash_password(self, password: str) -> str:
+def _hash_password(password: str) -> str:
     """Hash a password for storing.
     """
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
     
-def _generate_uuid(self) -> str:
+def _generate_uuid() -> str:
     """Generate uuid
     """
     return str(uuid.uuid4())
