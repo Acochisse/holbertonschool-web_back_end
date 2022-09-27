@@ -42,11 +42,10 @@ class Auth:
         """checks password for valid login"""
         try:
             user = self._db.find_user_by(email=email)
-            return bcrypt.checkpw(password.encode('utf-8'),
-                                  user.hashed_password)
+            return bcrypt.checkpw(password.encode('utf-8'), user.hashed_password)
         except NoResultFound:
             return False
-
+    
     def create_session(self, email: str) -> str:
         """Creates new session"""
         try:
