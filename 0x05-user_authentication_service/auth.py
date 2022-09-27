@@ -9,6 +9,18 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm.exc import NoResultFound
 
 
+def _generate_uuid(self) -> str:
+    """Generate uuid
+    """
+    return str(uuid.uuid4())
+
+
+def _hash_password(self, password: str) -> str:
+    """Hash a password for storing.
+    """
+    return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
+
+
 class Auth:
     """Auth class to interact with the authentication database.
     """
@@ -16,16 +28,6 @@ class Auth:
     def __init__(self):
         """initisation"""
         self._db = DB()
-
-    def _generate_uuid(self) -> str:
-        """Generate uuid
-        """
-        return str(uuid.uuid4())
-
-    def _hash_password(self, password: str) -> str:
-        """Hash a password for storing.
-        """
-        return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
 
     def register_user(self, email: str, password: str) -> User:
         """Registers a new user"""
