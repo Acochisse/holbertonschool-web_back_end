@@ -12,7 +12,7 @@ Base = declarative_base()
 class User(Base):
     """model for database table"""
     __tablename__ = 'users'
-    
+
     id = Column(Integer, primary_key=True, autoincrement=True, nullable=False)
     email = Column(String(250), nullable=False)
     hashed_password = Column(String(250), nullable=False)

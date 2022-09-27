@@ -30,10 +30,13 @@ class DB:
             DBSession = sessionmaker(bind=self._engine)
             self.__session = DBSession()
         return self.__session
-    
+
     def add_user(self, email, hashed_password) -> User:
-        """Implement the add_user method, which has two required string arguments: email and hashed_password,
-        and returns a User object. Adds user.id to user. The method should save the user to the database. No validations are required at this stage.
+        """Implement the add_user method, which has two required
+        string arguments: email and hashed_password,
+        and returns a User object. Adds user.id to user.
+        The method should save the user to the database.
+        No validations are required at this stage.
         """
         user = User(email=email, hashed_password=hashed_password)
         self._session.add(user)
@@ -41,8 +44,11 @@ class DB:
         return user
 
     def find_user_by(self, **kwargs) -> User:
-        """Implement the find_user_by method, which has one required argument: kwargs, a dictionary.
-        The method should return the first row found in the users table as filtered by the method’s input arguments.
+        """Implement the find_user_by method, which has one required
+        argument: kwargs, a dictionary.
+        The method should return the first
+        row found in the users table as filtered by the methods
+        input arguments.
         """
         if not kwargs:
             raise InvalidRequestError
@@ -52,14 +58,15 @@ class DB:
         if not row:
             raise NoResultFound
         return row
-    
+
     def update_user(self, user_id: int, **kwargs) -> None:
-        """Implement the update_user method, which has two required arguments: user_id and kwargs, a dictionary.
-        The method should update the corresponding user with the new attributes.
+        """Implement the update_user method, which has two required arguments:
+        user_id and kwargs, a dictionary.
+        The method should update the corresponding user with the
+        attributes.
         """
         user = self.find_user_by(id=user_id)
         for key, value in kwargs.items():
             if key in User.__table__.columns.keys():
                 setattr(user, key, value)
         self._session.commit()
-        
