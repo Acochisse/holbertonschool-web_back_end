@@ -31,12 +31,8 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
-    def add_user(self, email, hashed_password) -> User:
-        """Implement the add_user method, which has two required
-        string arguments: email and hashed_password,
-        and returns a User object. Adds user.id to user.
-        The method should save the user to the database.
-        No validations are required at this stage.
+    def add_user(self, email: str , hashed_password: str) -> User:
+        """adds a user to the database
         """
         user = User(email=email, hashed_password=hashed_password)
         self._session.add(user)
