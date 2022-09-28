@@ -3,8 +3,9 @@
 """
 from db import DB
 import bcrypt
-import uuid
+from uuid import uuid4
 from user import User
+from typing import ByteString
 from sqlalchemy import create_engine
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -12,10 +13,11 @@ from sqlalchemy.orm.exc import NoResultFound
 def _generate_uuid() -> str:
     """Generate uuid
     """
-    return str(uuid.uuid4())
+    UUID = str(uuid4())
+    return UUID
 
 
-def _hash_password(password: str) -> byte:
+def _hash_password(password: str) -> str:
     """Hash a password for storing.
     """
     return bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
@@ -42,10 +44,11 @@ class Auth:
         """checks password for valid login"""
         try:
             user = self._db.find_user_by(email=email)
-            return bcrypt.checkpw(password.encode('utf-8'), user.hashed_password)
+            return bcrypt.checkpw(password.encode('utf-8'),
+                                  user.hashed_password)
         except NoResultFound:
             return False
-    
+
     def create_session(self, email: str) -> str:
         """Creates new session"""
         try:

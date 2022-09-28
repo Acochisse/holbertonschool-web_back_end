@@ -2,10 +2,10 @@
 """
 Module that implements a flask app
 """
-from flask import Flask, jsonify, request, abort
+from flask import Flask, jsonify, request, abort, Response
 from auth import Auth
 from typing import List, Dict
-from flask import Response
+
 
 AUTH = Auth()
 app = Flask(__name__)
