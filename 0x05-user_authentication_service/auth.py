@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """ Module that handles all authentication
 """
+from tkinter import N
 from db import DB
 import bcrypt
 from uuid import uuid4
@@ -82,5 +83,19 @@ class Auth:
             password_token = _generate_uuid()
             self._db.update_user(user.id, reset_token=password_token)
             return password_token
+        except NoResultFound:
+            raise ValueError
+
+    def update_password(self, reset_token: str, password: str) -> None:
+        """checks the reset token with the database then 
+        sets the new password"""
+        if not reset_token or password:
+            return None
+        try:
+            user = self._db.find_user_by(reset_token=reset_token)
+            NPwd = _hash_password(password)
+            self._db.update_user(user.id, hashed_password=NPwd,
+                                 reset_token=None)
+
         except NoResultFound:
             raise ValueError
