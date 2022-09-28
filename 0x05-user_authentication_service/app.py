@@ -2,7 +2,7 @@
 """
 Module that implements a flask app
 """
-from flask import Flask, jsonify, request, abort, Response
+from flask import Flask, jsonify, request, abort, Response, redirect
 from auth import Auth
 from typing import List, Dict
 
@@ -61,8 +61,8 @@ def profile() -> str:
     """
     session_id = request.cookies.get('session_id')
     user = AUTH.get_user_from_session_id(session_id)
-    if user:
-        return jsonify({"email": user.email})
+    if user and session_id:
+        return jsonify({"email": user.email}), 200
     else:
         abort(403)
 
@@ -74,7 +74,7 @@ def get_reset_password_token() -> str:
     email = request.form.get('email')
     try:
         reset_token = AUTH.get_reset_password_token(email)
-        return jsonify({"email": email, "reset_token": reset_token})
+        return jsonify({"email": email, "reset_token": reset_token}), 200
     except ValueError:
         abort(403)
 
