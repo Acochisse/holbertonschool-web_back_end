@@ -9,6 +9,7 @@ from user import User
 from typing import ByteString
 from sqlalchemy import create_engine
 from sqlalchemy.orm.exc import NoResultFound
+import tkinter as tk
 
 
 def _generate_uuid() -> str:
