@@ -4,7 +4,7 @@ Module for unittests for the utils module
 """
 import unittest
 from parameterized import parameterized
-from utils import access_nested_map
+from utils import access_nested_map, get_json, memoize
 
 
 class TestAccessNestedMap(unittest.TestCase):
@@ -26,3 +26,14 @@ class TestAccessNestedMap(unittest.TestCase):
         """Tests the access_nested_map function in utils.py"""
         with self.assertRaises(KeyError):
             access_nested_map(nested_map, path)
+
+
+class TestGetJson(unittest.TestCase):
+    """Tests the get_json function in utils.py"""
+    @parameterized.expand([
+        ("http://example.com", {"payload": True}),
+        ("http://holberton.io", {"payload": False})
+    ])
+    def test_get_json(self, test_url, test_payload):
+        """Tests the get_json function in utils.py"""
+        self.assertEqual(get_json(test_url), test_payload)
