@@ -3,6 +3,7 @@
 Module for unittests for the utils module
 """
 import unittest
+from unittest.mock import patch
 from parameterized import parameterized
 from utils import access_nested_map, get_json, memoize
 
@@ -37,3 +38,27 @@ class TestGetJson(unittest.TestCase):
     def test_get_json(self, test_url, test_payload):
         """Tests the get_json function in utils.py"""
         self.assertEqual(get_json(test_url), test_payload)
+
+
+class TestMemoize(unittest.TestCase):
+    """Tests the memoize function in utils.py"""
+
+    def test_memoize(self):
+        """Tests the memoize function in utils.py"""
+        class TestClass:
+            """Test class for memoize"""
+
+            def a_method(self):
+                """Test method for memoize"""
+                return 42
+
+            @memoize
+            def a_property(self):
+                """Test property for memoize"""
+                return self.a_method()
+
+        with patch.object(TestClass, 'a_method') as mock:
+            test = TestClass()
+            test.a_property
+            test.a_property
+            mock.assert_called_once()
