@@ -7,8 +7,9 @@ from urllib import request
 from flask import render_template
 from flask_babel import Babel
 
-babel = Babel(app)
+
 app = flask.Flask(__name__)
+babel = Babel(app)
 
 
 class Config(object):
@@ -20,6 +21,7 @@ class Config(object):
 
 @app.route('/', strict_slashes=False)
 def create_app():
+    """Creates a simple flask app"""
     return render_template('1-index.html')
 
 
