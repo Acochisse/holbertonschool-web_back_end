@@ -23,6 +23,7 @@ app.config.from_object(Config)
 
 @app.route('/', strict_slashes=False)
 def create_app():
+    """Creates a simple flask app"""
     return render_template('1-index.html')
 
 
