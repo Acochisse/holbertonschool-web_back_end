@@ -10,6 +10,7 @@ app = flask.Flask(__name__)
 
 @app.route('/', strict_slashes=False)
 def create_app():
+    """creates a simple flask app"""
     return render_template('0-index.html')
 
 
