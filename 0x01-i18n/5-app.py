@@ -43,8 +43,8 @@ def login() -> str:
 def get_user():
     """Get user from users"""
     try:
-        usrId = request.args.get('login_as')
-        return users[int(usrId)]
+        username = request.args.get('login_as')
+        return users[int(username)]
     except Exception:
         return None
 
