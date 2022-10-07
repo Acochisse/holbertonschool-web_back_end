@@ -59,9 +59,18 @@ def before_request():
 def get_locale() -> str:
     """ Get locale from request """
     locale = request.args.get('locale')
-    if locale and locale in Config.LANGUAGES:
+    langs = app.config['LANGUAGES']
+    if locale and locale in langs:
         return locale
-    return request.accept_languages.best_match(Config.LANGUAGES)
+    userId = request.args.get('login_as')
+    if userId:
+        locale = users[int(userId)]['locale']
+        if locale in langs:
+            return locale
+    locale = request.headers.get('locale')
+    if locale and locale in langs:
+        return locale
+    return request.accept_languages.best_match(langs)
 
 
 if __name__ == '__main__':
