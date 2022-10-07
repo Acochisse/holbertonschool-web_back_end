@@ -3,8 +3,7 @@
 module that creates a simple flask app
 """
 import flask
-from urllib import request
-from flask import render_template
+from flask import render_template, request
 from flask_babel import Babel, gettext
 
 
@@ -19,17 +18,20 @@ class Config(object):
     BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
-@app.route('/', strict_slashes=False)
+@app.route('/', methods=['GET'], strict_slashes=False)
 def create_app() -> str:
     """Creates a simple flask app"""
     return render_template('3-index.html')
 
 
 @babel.localeselector
-def get_locale():
-    """Get locale from request"""
-    return request.accept_languages.best_match(app.config['LANGUAGES'])
+def get_locale() -> str:
+    """ Get locale from request """
+    locale = request.args.get('locale')
+    if locale and locale in Config.LANGUAGES:
+        return locale
+    return request.accept_languages.best_match(Config.LANGUAGES)
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000)
+    app.run()
