@@ -24,7 +24,9 @@ class Config(object):
     BABEL_DEFAULT_LOCALE = 'en'
     BABEL_DEFAULT_TIMEZONE = 'UTC'
 
+
 app.config.from_object(Config)
+
 
 @app.route('/', methods=['GET'], strict_slashes=False)
 def create_app() -> str:
@@ -34,7 +36,7 @@ def create_app() -> str:
 
 @app.route('/login', methods=['GET'], strict_slashes=False)
 def login() -> str:
-    """Login route"""
+    """logs the user in"""
     return render_template('5-login.html')
 
 
@@ -49,7 +51,7 @@ def get_user():
 
 @app.before_request
 def before_request():
-    """Before request"""
+    """before request gets and sets the user"""
     g.user = get_user()
 
 
