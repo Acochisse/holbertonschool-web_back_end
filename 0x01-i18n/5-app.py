@@ -3,7 +3,7 @@
 module that creates a simple flask app
 """
 import flask
-from flask import render_template, request, g
+from flask import render_template, request, g, jsonify
 from flask_babel import Babel, gettext
 
 
@@ -37,7 +37,7 @@ def create_app() -> str:
 @app.route('/login', methods=['GET'], strict_slashes=False)
 def login() -> str:
     """logs the user in"""
-    return render_template('5-login.html')
+    return render_template('5-index.html')
 
 
 def get_user():

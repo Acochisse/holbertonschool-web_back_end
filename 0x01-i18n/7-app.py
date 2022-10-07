@@ -31,13 +31,13 @@ app.config.from_object(Config)
 @app.route('/', methods=['GET'], strict_slashes=False)
 def create_app() -> str:
     """Creates a simple flask app"""
-    return render_template('6-index.html')
+    return render_template('7-index.html')
 
 
 @app.route('/login', methods=['GET'], strict_slashes=False)
 def login() -> str:
     """logs the user in"""
-    return render_template('6-index.html')
+    return render_template('7-index.html')
 
 
 def get_user():
@@ -71,6 +71,15 @@ def get_locale() -> str:
     if locale and locale in langs:
         return locale
     return request.accept_languages.best_match(langs)
+
+
+@babel.timezoneselector
+def get_timezone() -> str:
+    """ Get timezone from request """
+    userId = request.args.get('login_as')
+    if userId:
+        return users[int(userId)]['timezone']
+    return app.config['BABEL_DEFAULT_TIMEZONE']
 
 
 if __name__ == '__main__':
