@@ -8,7 +8,7 @@ from typing import Union, Callable, Optional, Any
 from functools import wraps
 
 
-def call_history(method: callable) -> callable:
+def call_history(method: Callable) -> Callable:
     """Stores the history of inputs and outputs for a particular function"""
 
     @wraps(method)
@@ -21,7 +21,7 @@ def call_history(method: callable) -> callable:
     return wrapper
 
 
-def count_calls(method: callable) -> callable:
+def count_calls(method: Callable) -> Callable:
     """Counts the number of calls to a function"""
     key = method.__qualname__
 
@@ -49,7 +49,7 @@ class Cache:
         self._redis.set(key, data)
         return key
 
-    def get(self, key: str, fn: Optional[callable] = None) -> Union[str, bytes, int, float]:
+    def get(self, key: str, fn: Optional[Callable] = None) -> Union[str, bytes, int, float]:
         """Gets data from redis"""
         data = self._redis.get(key)
         if fn:
@@ -68,7 +68,7 @@ class Cache:
         except ValueError:
             return 0
 
-    def replay(method: callable) -> None:
+    def replay(method: Callable) -> None:
         """Replays the history of calls to the class"""
         for key in self._redis.keys():
             key = key.decode("utf-8")
