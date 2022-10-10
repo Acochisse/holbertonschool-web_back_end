@@ -4,12 +4,14 @@ Module containing the class Cache, which manages a cache database with redis
 """
 import redis
 import uuid
-from typing import Union, Callable, Optional
+from typing import Union, Callable, Optional,
+from functools import wraps
 
 
 def call_history(method: callable) -> callable:
     """Stores the history of inputs and outputs for a particular function"""
 
+    @wraps(method)
     def wrapper(self, *args, **kwargs):
         """Wrapper function"""
         self._redis.rpush(method.__qualname__ + ":inputs", str(args))
@@ -21,10 +23,12 @@ def call_history(method: callable) -> callable:
 
 def count_calls(method: callable) -> callable:
     """Counts the number of calls to a function"""
+    key = method.__qualname__
 
+    @wraps(method)
     def wrapper(self, *args, **kwargs):
         """Wrapper function"""
-        self._redis.incr(method.__qualname__)
+        self._redis.incr(key)
         return method(self, *args, **kwargs)
     return wrapper
 
@@ -39,17 +43,18 @@ class Cache:
 
     @count_calls
     @call_history
-    def store(self, data: str) -> str:
+    def store(self, data: Union[str, bytes, int, float]) -> str:
         """Stores data in redis"""
-        self._redis.set("data", data)
         key = str(uuid.uuid4())
+        self._redis.set(key, data)
         return key
 
-    def get(self, key: str, fn: callable = None) -> str:
+    def get(self, key: str, fn: Optional[callable] = None) -> Union[str, bytes, int, float]:
         """Gets data from redis"""
+        data = self._redis.get(key)
         if fn:
-            self._redis.set("fn", fn)
-        return self._redis.get("data")
+            return fn(data)
+        return data
 
     def get_str(self, key: str) -> str:
         """Gets data from redis and returns a string"""
@@ -57,9 +62,13 @@ class Cache:
 
     def get_int(self, key: str) -> int:
         """Gets data from redis and returns an int"""
-        return int(self._redis.get("data"))
+        data = self._redis.get(key)
+        try:
+            data = int(data)
+        except ValueError:
+            return 0
 
-    def replay(self):
+    def replay(method: callable) -> None:
         """Replays the history of calls to the class"""
         for key in self._redis.keys():
             key = key.decode("utf-8")
