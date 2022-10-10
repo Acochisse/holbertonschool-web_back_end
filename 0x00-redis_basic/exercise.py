@@ -4,6 +4,7 @@ Module containing the class Cache, which manages a cache database with redis
 """
 import redis
 import uuid
+from typing import Union, Callable, Optional
 
 
 def call_history(method: callable) -> callable:
