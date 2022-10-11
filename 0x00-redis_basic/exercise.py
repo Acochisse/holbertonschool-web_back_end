@@ -70,13 +70,9 @@ class Cache:
 
     def replay(method: Callable) -> None:
         """Replays the history of calls to the class"""
-        for key in self._redis.keys():
-            key = key.decode("utf-8")
-            if key.endswith(":inputs"):
-                print(f"{key[:-7]}(*{self._redis.lrange(key, 0, -1)}) -> "
-                      f"{self._redis.lrange(key[:-7] + ':outputs', 0, -1)}")
-            elif key.endswith(":outputs"):
-                pass
-            else:
-                print(
-                    f"{key} was called {self._redis.get(key).decode('utf-8')} times")
+        key = method.__qualname__
+        inputs = self._redis.lrange("{}:inputs".format(key), 0, -1)
+        outputs = self._redis.lrange("{}:outputs".format(key), 0, -1)
+        print("{} was called {} times:".format(key, self._redis.get(key)))
+        for i, o in zip(inputs, outputs):
+            print("{}(*{}) -> {}".format(key, i, o))
