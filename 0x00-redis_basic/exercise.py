@@ -7,6 +7,14 @@ import uuid
 from typing import Union, Callable, Optional, Any
 from functools import wraps
 
+def replay(method: Callable) -> None:
+    """Replays the history of calls to the class"""
+    key = method.__qualname__
+    inputs = self._redis.lrange("{}:inputs".format(key), 0, -1)
+    outputs = self._redis.lrange("{}:outputs".format(key), 0, -1)
+    print("{} was called {} times:".format(key, self._redis.get(key)))
+    for i, o in zip(inputs, outputs):
+        print("{}(*{}) -> {}".format(key, i, o))
 
 def call_history(method: Callable) -> Callable:
     """Stores the history of inputs and outputs for a particular function"""
@@ -49,7 +57,8 @@ class Cache:
         self._redis.set(key, data)
         return key
 
-    def get(self, key: str, fn: Optional[Callable] = None) -> Union[str, bytes, int, float]:
+    def get(self, key: str,
+            fn: Optional[Callable] = None) -> Union[str, bytes, int, float]:
         """Gets data from redis"""
         data = self._redis.get(key)
         if fn:
@@ -68,11 +77,4 @@ class Cache:
         except ValueError:
             return 0
 
-    def replay(method: Callable) -> None:
-        """Replays the history of calls to the class"""
-        key = method.__qualname__
-        inputs = self._redis.lrange("{}:inputs".format(key), 0, -1)
-        outputs = self._redis.lrange("{}:outputs".format(key), 0, -1)
-        print("{} was called {} times:".format(key, self._redis.get(key)))
-        for i, o in zip(inputs, outputs):
-            print("{}(*{}) -> {}".format(key, i, o))
+    
