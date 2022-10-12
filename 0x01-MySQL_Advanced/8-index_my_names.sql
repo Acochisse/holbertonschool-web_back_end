@@ -2,4 +2,4 @@
 -- only the first letter of the name is indexed
 
 
-CREATE INDEX name_index ON names (name(1));
+CREATE INDEX name_index_first ON names (name(1));
