@@ -2,7 +2,7 @@
 -- imported from the file metal_bands.sql
 -- Column names must be: origin and nb_fans
 
-SELECT origin, COUNT(*) AS nb_fans
+SELECT origin, COUNT(fan_id) AS nb_fans
 FROM metal_bands
 GROUP BY origin
 ORDER BY nb_fans DESC;
