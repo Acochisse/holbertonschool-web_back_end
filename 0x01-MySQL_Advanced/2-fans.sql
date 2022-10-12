@@ -2,6 +2,6 @@
 -- imported from the file metal_bands.sql
 -- Column names must be: origin and nb_fans
 
-Select DISTINCT `origin`, COUNT(`fans`) AS `nb_fans` FROM `metal_bands`
+Select DISTINCT `origin`, SUM(`fans`) AS `nb_fans` FROM `metal_bands`
 GROUP BY `origin`
 ORDER BY `nb_fans` DESC;
