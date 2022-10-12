@@ -1,11 +1,11 @@
--- script that creates a table with the following attributes:
+-- script that creates a table if it doesnt exist with the following attributes:
 -- 1. id (int)
--- 2. email (varchar)
+-- 2. email uniq (varchar)
 -- 3. name (varchar)
 
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
     id INT NOT NULL AUTO_INCREMENT,
-    email VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
     name VARCHAR(255) NOT NULL,
     PRIMARY KEY (id)
 );
