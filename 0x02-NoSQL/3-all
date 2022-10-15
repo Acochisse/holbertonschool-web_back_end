@@ -1,0 +1,2 @@
+// script that finds all items in the collection school
+db.school.find();
