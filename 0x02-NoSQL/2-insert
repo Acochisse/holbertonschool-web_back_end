@@ -1,0 +1,2 @@
+// Script that inserts a name into a collection
+db.user.insert({name: "Holberton school"});
