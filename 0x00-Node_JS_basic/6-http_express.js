@@ -5,13 +5,11 @@
 
 const express = require('express');
 
+const port = 1245;
+
 const app = express();
 
-app.get('/', (req, res) => {
-    res.send('Hello Holberton School!');
-});
-port = 1245;
-
-app.listen(port);
+app.get('/', (_req, res) => res.send('Hello Holberton School!'))
+  .listen(port);
 
 module.exports = app;
