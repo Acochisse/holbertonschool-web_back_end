@@ -9,7 +9,7 @@ const app = express();
 
 app.get('/', (req, res) => {
     res.send('Hello Holberton School!');
-}
+});
 port = 1245;
 
 app.listen(port);
