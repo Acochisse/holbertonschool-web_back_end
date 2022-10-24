@@ -43,10 +43,11 @@ const app = http
         .catch((err) => {
             res.write(err.message);
         });
-        .finally(() => {
+        app.finally(() => {
             res.end();
-        }
-    });
-    .listen(port);
+        });
+    }
+    })
+    app.listen(port);
 
 module.exports = app;
