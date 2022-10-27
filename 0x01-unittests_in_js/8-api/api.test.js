@@ -8,5 +8,10 @@ describe('GET /', () => {
       done();
     });
   });
+  it('should return Welcome to the payment system', (done) => {
+    request('http://localhost:7865', (err, res) => {
+      expect(res.body).to.equal('Welcome to the payment system');
+      done();
+    });
+  });
 });
-
