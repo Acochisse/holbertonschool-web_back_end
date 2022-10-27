@@ -1,7 +1,7 @@
 // script that uses mocha to test the calculateNumber function
 
 const assert = require('assert');
-const calculateNumber = require('./0-calcul.js');
+const calculateNumber = require('./0-calcul');
 
 describe('calculateNumber', function () {
   it('returns the rounded sum of the two positive numbers', function () {
