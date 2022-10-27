@@ -3,9 +3,7 @@ function calculateNumber(a, b) {
   if (isNaN(a) || isNaN(b)) {
     return NaN;
   }
-  const aR = Math.round(a);
-  const bR = Math.round(b);
-  return Math.round(aR + bR);
+  return Math.round(a) + Math.round(b);
 }
 
 module.exports = calculateNumber;
