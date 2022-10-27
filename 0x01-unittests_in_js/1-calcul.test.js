@@ -5,47 +5,42 @@ const assert = require('assert');
 
 describe('calculateNumber', function () {
 it('returns the rounded sum of the two positive numbers', function () {
-    assert.strictEqual(calcul(1.4, 4.5, 'SUM'), 6);
-    assert.strictEqual(calcul(4.5, 1.4, 'SUM'), 6);
-    assert.strictEqual(calcul(1.5, 3.5, 'SUM'), 6);
-    assert.strictEqual(calcul(3.5, 1.5, 'SUM'), 6);
-    assert.strictEqual(calcul(1.5, 4.5, 'SUM'), 7);
-    assert.strictEqual(calcul(4.5, 1.5, 'SUM'), 7);
-    assert.strictEqual(calcul(1.4, 4.4, 'SUM'), 5);
-    assert.strictEqual(calcul(4.4, 1.4, 'SUM'), 5);
-    assert.strictEqual(calcul(1.4, 4.6, 'SUM'), 6);
-    assert.strictEqual(calcul(4.6, 1.4, 'SUM'), 6);
-    assert.strictEqual(calcul(1.3, 4.3, 'SUM'), 5);
-    assert.strictEqual(calcul(4.3, 1.3, 'SUM'), 5);
-    assert.strictEqual(calcul(1.3, 4.7, 'SUM'), 6);
-    assert.strictEqual(calcul(4.7, 1.3, 'SUM'), 6);
+    assert.strictEqual(calcul('SUM', 1.4, 4.5), 6);
+    assert.strictEqual(calcul('SUM', 4.5, 1.4), 6);
+    assert.strictEqual(calcul('SUM', 1.5, 3.5), 6);
+    assert.strictEqual(calcul('SUM', 3.5, 1.5), 6);
+    assert.strictEqual(calcul('SUM', 1.5, 4.5), 7);
+    assert.strictEqual(calcul('SUM', 4.5, 1.5), 7);
+    assert.strictEqual(calcul('SUM', 1.4, 4.4), 5);
+    assert.strictEqual(calcul('SUM', 4.4, 1.4), 5);
+
+
 })
 it('returns the rounded subtracted value of a and b', function () {
-    assert.strictEqual(calcul(1.4, 4.5, 'SUBTRACT'), -4);
-    assert.strictEqual(calcul(4.5, 1.4, 'SUBTRACT'), 4);
-    assert.strictEqual(calcul(1.5, 3.5, 'SUBTRACT'), -2);
-    assert.strictEqual(calcul(3.5, 1.5, 'SUBTRACT'), 2);
-    assert.strictEqual(calcul(1.5, 4.5, 'SUBTRACT'), -3);
-    assert.strictEqual(calcul(4.5, 1.5, 'SUBTRACT'), 3);
-    assert.strictEqual(calcul(1.4, 4.4, 'SUBTRACT'), -3);
+    assert.strictEqual(calcul('SUBTRACT', 1.4, 4.5), -4);
+    assert.strictEqual(calcul('SUBTRACT', 4.5, 1.4), 4);
+    assert.strictEqual(calcul('SUBTRACT', 1.5, 3.5), -2);
+    assert.strictEqual(calcul('SUBTRACT', 3.5, 1.5), 2);
+    assert.strictEqual(calcul('SUBTRACT', 1.5, 4.5), -3);
+    assert.strictEqual(calcul('SUBTRACT', 4.5, 1.5), 3);
+    assert.strictEqual(calcul('SUBTRACT', 1.4, 4.4), -3);
+    assert.strictEqual(calcul('SUBTRACT', 4.4, 1.4), 3);
 })
 it('returns the rounded divided value of a and b', function () {
-    assert.strictEqual(calcul(1.4, 4.5, 'DIVIDE'), 0.2);
-    assert.strictEqual(calcul(4.5, 1.4, 'DIVIDE'), 5);
-    assert.strictEqual(calcul(1.5, 3.5, 'DIVIDE'), 0.5);
-    assert.strictEqual(calcul(3.5, 1.5, 'DIVIDE'), 2);
-    assert.strictEqual(calcul(1.5, 4.5, 'DIVIDE'), 0.4);
-    assert.strictEqual(calcul(4.5, 1.5, 'DIVIDE'), 2.5);
-    assert.strictEqual(calcul(1.4, 4.4, 'DIVIDE'), 0.25);
+    assert.strictEqual(calcul('DIVIDE', 1.4, 4.5), 0.2);
+    assert.strictEqual(calcul('DIVIDE', 4.5, 1.4), 5);
+    assert.strictEqual(calcul('DIVIDE', 0, 3.5), 0);
+    assert.strictEqual(calcul('DIVIDE', 3.5, 0), 'Error');
 })
 it('returns the rounded multiplied value of a and b', function () {
-    assert.strictEqual(calcul(1.4, 4.5, 'MULTIPLY'), 5);
-    assert.strictEqual(calcul(4.5, 1.4, 'MULTIPLY'), 5);
-    assert.strictEqual(calcul(1.5, 3.5, 'MULTIPLY'), 8);
-    assert.strictEqual(calcul(3.5, 1.5, 'MULTIPLY'), 8);
-    assert.strictEqual(calcul(1.5, 4.5, 'MULTIPLY'), 10);
-    assert.strictEqual(calcul(4.5, 1.5, 'MULTIPLY'), 10);
-    assert.strictEqual(calcul(1.4, 4.4, 'MULTIPLY'), 4);
+    assert.strictEqual(calcul('MULTIPLY', 1.4, 4.5), 5);
+    assert.strictEqual(calcul('MULTIPLY', 4.5, 1.4), 5);
+    assert.strictEqual(calcul('MULTIPLY', 1.5, 3.5), 8);
+    assert.strictEqual(calcul('MULTIPLY', 3.5, 1.5), 8);
+    assert.strictEqual(calcul('MULTIPLY', 1.5, 4.5), 10);
+    assert.strictEqual(calcul('MULTIPLY', 4.5, 1.5), 10);
+    assert.strictEqual(calcul('MULTIPLY', 1.4, 4.4), 4);
+    assert.strictEqual(calcul('MULTIPLY', 4.4, 1.4), 4);
 })
 })
 
