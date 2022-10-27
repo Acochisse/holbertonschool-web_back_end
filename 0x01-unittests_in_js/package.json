@@ -2,13 +2,12 @@
   "name": "unittests_in_js",
   "version": "1.0",
   "description": "tests for the js code",
-  "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "./node_modules/mocha/bin/mocha --require babel-register --exit"
   },
   "devDependencies": {
     "chai": "^4.3.4",
-    "mocha": "^10.0.0",
+    "mocha": "^10.1.0",
     "sinon": "^11.1.2"
   }
 }
