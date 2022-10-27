@@ -28,5 +28,12 @@ describe('GET /cart/:id', () => {
       done();
     });
   });
+  it('should return 404', (done) => {
+    request('http://localhost:7865/cart/hello', (err, res) => {
+      expect(res.statusCode).to.equal(404);
+      done();
+    });
+  }
+  );
 });
 
