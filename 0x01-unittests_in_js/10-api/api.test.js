@@ -36,4 +36,33 @@ describe('GET /cart/:id', () => {
   }
   );
 });
-
+describe('GET /available_payments', () => {
+  it('should return 200', (done) => {
+    request('http://localhost:7865/available_payments', (err, res) => {
+      expect(res.statusCode).to.equal(200);
+      done();
+    });
+  });
+  it('should return Payment methods for cart 12', (done) => {
+    request('http://localhost:7865/available_payments', (err, res) => {
+      expect(res.body).to.equal('{"payment_methods":{"credit_cards":true,"paypal":false}}');
+      done();
+    });
+  });
+}
+);
+describe('POST /login', () => {
+  it('should return 200', (done) => {
+    request.post('http://localhost:7865/login', (err, res) => {
+      expect(res.statusCode).to.equal(200);
+      done();
+    });
+  });
+  it('should return Payment methods for cart 12', (done) => {
+    request.post('http://localhost:7865/login', (err, res) => {
+      expect(res.body).to.equal('Welcome undefined');
+      done();
+    });
+  });
+}
+);
