@@ -1,7 +1,4 @@
-const request = require('request');
 const express = require('express');
-const { get } = require('request');
-
 
 const port = 7865;
 
@@ -23,10 +20,9 @@ app.get('/available_payments', (req, res) => {
     },
   });
 });
-// adds a new post route to the app under "/login"
-// returns a message with "Welcome :username"
 
-app.post('/login', (req, res) => {
+app.use(express.json())
+.post('/login', (req, res) => {
   res.send(`Welcome ${req.body.userName}`);
 });
 
