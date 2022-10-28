@@ -15,7 +15,9 @@ const app = http.createServer(async(req, res) => {
 		} catch (err){
 				res.end(err.message);
 		}
-	}});
+	}
+	res.end();
+});
 
 app.listen(port);
 module.exports = app;
