@@ -8,15 +8,15 @@ const app = http.createServer((req, res) => {
 		res.write('Hello Holberton School!');
 	}
 	if (req.url === '/students') {
-		res.write('This is the list of our students')
-		try {
-			const path = process.argv[2];
-			let slist = countStudents(path);
-			res.end(String(slist));
-		} catch (err) {
-			res.end(err.message);
-		}
+		countStudents(process.argv[2])
+			.then((data) => {
+				res.write(`This is the list of our students' + ${data}`);
+			})
+			.catch((err) => {
+				res.write(err.message);
+			});
 	}
+
 	res.end();
 });
 
