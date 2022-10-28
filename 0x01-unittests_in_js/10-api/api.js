@@ -23,9 +23,11 @@ app.get('/available_payments', (req, res) => {
     },
   });
 });
+// adds a new post route to the app under "/login"
+// returns a message with "Welcome :username"
 
 app.post('/login', (req, res) => {
-  res.send({ code: 200, message: `Welcome ${req.body.userName}` });
+  res.send(`Welcome ${req.body.userName}`);
 });
 
 app.listen(port, () => {
